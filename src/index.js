@@ -1,43 +1,18 @@
 require('./marionette_shim')
 var data = require('../public/rippleds.json')
 
+import Domain             from './models/domain'
+import Rippled            from './models/rippled'
+import Domains            from './collections/domains'
+import Rippleds           from './collections/rippleds'
+import DomainListItemView from './views/domain_list_item_view'
+import DomainsListView    from './views/domains_list_view'
+import DomainView         from './views/domain_view'
+
 var App = new Backbone.Marionette.Application();
 
 App.addRegions({
   mainRegion: '#content'
-})
-
-class Rippled extends Backbone.Model {
-  parse(ip) {
-    console.log('parse rippled', ip)
-    return { ip: ip }
-  }
-}
-
-class Rippleds extends Backbone.Collection {}
-
-var Domain = Backbone.Model.extend({
-  defaults: {
-    imageUrl: ""
-  }
-})
-
-var Domains = Backbone.Collection.extend({
-  model: Domain
-})
-
-var DomainListItemView = Backbone.Marionette.ItemView.extend({
-  template: '#domain-list-item-template'
-})
-
-var DomainsListView = Backbone.Marionette.CollectionView.extend({
-  childView: DomainListItemView,
-  className: 'domains-list',
-  tagName: 'ul'
-})
-
-var RippledListItemView = Backbone.Marionette.ItemView.extend({
-  template: _.template('<li><%= ip %></li>')
 })
 
 var domains = new Domains(Object.keys(data.rippleds).map(function(key) {
@@ -51,16 +26,11 @@ var domainsListView = new DomainsListView({
   collection: domains
 })
 
-var DomainView = Backbone.Marionette.CompositeView.extend({
-  template: '#domain-template',
-  childView: RippledListItemView,
-  childViewContainer: 'ul'
-})
-
 var Router = Backbone.Marionette.AppRouter.extend({
   routes : {
     "": "home",
-    "domains/:domain" : "showDomain"
+    "domains/:domain" : "showDomain",
+    "domains/:domain/:ip" : "showRippled"
   },
   showDomain : function(domain){
     var model = new Domain({
@@ -68,7 +38,10 @@ var Router = Backbone.Marionette.AppRouter.extend({
       imageUrl: data.rippleds[domain].imageUrl
     })
     var rippleds = data.rippleds[domain]["ips"].map(function(ip) {
-      return { ip: ip }
+      return {
+        ip: ip,
+        domain: domain
+      }
     })
     var collection = new Rippleds(rippleds)
     var domainView = new DomainView({
@@ -82,6 +55,9 @@ var Router = Backbone.Marionette.AppRouter.extend({
       collection: domains
     })
     App.mainRegion.show(domainsListView)
+  },
+  showRippled: function(domain, ip) {
+    console.log('ip', ip)
   }
 });
 

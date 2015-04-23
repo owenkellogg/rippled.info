@@ -16,24 +16,47 @@
           img {
             width: 100px;
           }
+
+          .container {
+            margin: 0 auto;
+            width: 350px;
+          }
+
+          li {
+            list-style: none;
+          }
+
+          .domain-rippleds-list li {
+            padding: 0.5em 0;
+          }
         </style>
     </head>
     <body>
-      <h1 class='title'><a href='/#/'>rippled.info</a></h1>
-      <div id='content'></div>
+      <div class='container'>
+        <h1 class='title'><a href='/#/'>rippled.info</a></h1>
+        <div id='content'></div>
+      </div>
       <script id='validators-list-template' type='text/template'>
         <li>snapswap</li>
       </script>
       <script id='domain-list-item-template' type='text/template'>
         <li>
-          <img src='<%= imageUrl %>'/>
-          <a href='/#/domains/<%= domain %>'><%= domain %></a>
+          <a href='/#/domains/<%= domain %>'>
+            <img src='<%= imageUrl %>'/>
+            <%= domain %>
+          </a>
         </li>
       </script>
       <script id='domain-template' type='text/template'>
         <h2><%= domain %></h2>
         <img src='<%= imageUrl %>'/>
-        <ul></ul>
+        <ul class='domain-rippleds-list'></ul>
+      </script>
+      <script id='rippled-list-item-template' type='text/template'>
+        <li><a href='/#/domains/<%= domain %>/<%= ip %>'><%= ip %></a></li>
+      </script>
+      <script id='rippled-template' type='text/template'>
+        <li><a href='/#/domains/<%= domain %>/<%= ip %>'><%= ip %></a></li>
       </script>
       <script type="text/javascript" src="bundle.js"></script>
     </body>
