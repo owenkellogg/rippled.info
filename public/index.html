@@ -10,7 +10,11 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <style>
           h1 a {
-            text-decoration: none
+            text-decoration: none;
+          }
+
+          img {
+            width: 100px;
           }
         </style>
     </head>
@@ -21,10 +25,14 @@
         <li>snapswap</li>
       </script>
       <script id='domain-list-item-template' type='text/template'>
-        <li><a href='/#/domains/<%= domain %>'><%= domain %></a></li>
+        <li>
+          <img src='<%= imageUrl %>'/>
+          <a href='/#/domains/<%= domain %>'><%= domain %></a>
+        </li>
       </script>
       <script id='domain-template' type='text/template'>
         <h2><%= domain %></h2>
+        <img src='<%= imageUrl %>'/>
         <ul></ul>
       </script>
       <script type="text/javascript" src="bundle.js"></script>
