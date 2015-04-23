@@ -8,8 +8,25 @@
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-
-        <script type="text/javascript" src="bundle.js"></script>
+        <style>
+          h1 a {
+            text-decoration: none
+          }
+        </style>
     </head>
-    <body></body>
+    <body>
+      <h1 class='title'><a href='/#/'>rippled.info</a></h1>
+      <div id='content'></div>
+      <script id='validators-list-template' type='text/template'>
+        <li>snapswap</li>
+      </script>
+      <script id='domain-list-item-template' type='text/template'>
+        <li><a href='/#/domains/<%= domain %>'><%= domain %></a></li>
+      </script>
+      <script id='domain-template' type='text/template'>
+        <h2><%= domain %></h2>
+        <ul></ul>
+      </script>
+      <script type="text/javascript" src="bundle.js"></script>
+    </body>
 </html>
