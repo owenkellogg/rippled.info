@@ -7,14 +7,14 @@ App.addRegions({
   mainRegion: '#content'
 })
 
-var Rippled = Backbone.Model.extend({
-  parse: function(ip) {
+class Rippled extends Backbone.Model {
+  parse(ip) {
     console.log('parse rippled', ip)
     return { ip: ip }
   }
-})
+}
 
-var Rippleds = Backbone.Collection.extend()
+class Rippleds extends Backbone.Collection {}
 
 var Domain = Backbone.Model.extend({
   defaults: {
